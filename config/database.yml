@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  
+
+development:
+  <<: *default
+  database: rev_api_dev
+  username: rails
+  password: rails@123
+test:
+  <<: *default
+  database: rev_api_test
+  username: rails
+  password: rails@123
+production:
+  <<: *default
+  database: rev_api_prd
+  username:
+  password:

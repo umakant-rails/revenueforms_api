@@ -1,0 +1,2 @@
+class KhasraParticipant < ApplicationRecord
+end
