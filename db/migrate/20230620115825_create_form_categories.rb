@@ -4,6 +4,7 @@ class CreateFormCategories < ActiveRecord::Migration[7.0]
       t.integer :form_section_id
       t.string :hindi_name
       t.string :eng_name
+      t.text  :description
       t.timestamps
     end
   end

@@ -18,8 +18,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_11_185958) do
     t.integer "form_category_id"
     t.string "eng_name"
     t.string "hindi_name"
+    t.string "form_name"
     t.string "category"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "districts", force: :cascade do |t|
+    t.integer "code"
+    t.string "name"
+    t.string "name_eng"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_11_185958) do
     t.integer "form_section_id"
     t.string "hindi_name"
     t.string "eng_name"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -145,6 +155,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_11_185958) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tehsils", force: :cascade do |t|
+    t.integer "district_id"
+    t.integer "code"
+    t.string "name"
+    t.string "name_eng"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username"
@@ -171,20 +190,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_11_185958) do
   end
 
   create_table "villages", force: :cascade do |t|
-    t.string "district"
-    t.string "district_eng"
-    t.string "tehsil"
-    t.string "tehsil_eng"
+    t.integer "district_id"
+    t.integer "tehsil_id"
+    t.integer "ri_code"
     t.string "ri"
+    t.string "ri_eng"
     t.string "halka_number"
     t.string "halka_name"
+    t.string "halka_name_eng"
     t.string "village_code"
     t.string "village"
     t.string "village_eng"
     t.string "bhucode_lr"
     t.string "lgd_code"
-    t.integer "total_khasra"
-    t.integer "total_area"
+    t.string "data_available_since"
+    t.string "map_available"
+    t.string "ulb_name"
+    t.string "village_type"
+    t.string "is_khasra_available"
+    t.integer "khasra_count"
+    t.float "total_area_khasra"
+    t.integer "map_parcel_count"
+    t.float "total_area_map"
+    t.boolean "aabaadi_survey"
+    t.integer "ulnpin_plot"
+    t.integer "ulpin_khasra"
+    t.string "patwari_name"
+    t.string "mobile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
