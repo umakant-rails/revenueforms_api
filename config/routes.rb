@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
+
   scope(:path => '/api') do
+    devise_for :users, path: 'users', path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      registration: 'signup',
+    }, controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      passwords: 'users/passwords',
+      confirmations: 'users/confirmations'
+    }
 
     namespace :public, path: :pb do
       resources :form_sections do 

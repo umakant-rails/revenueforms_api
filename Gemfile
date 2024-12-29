@@ -38,6 +38,7 @@ gem "rack-cors"
 gem "pg"
 gem 'devise'
 gem 'devise-jwt'
+gem 'fast_jsonapi'
 gem "simple_xlsx_reader"
 
 group :development, :test do

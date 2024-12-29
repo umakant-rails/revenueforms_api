@@ -26,7 +26,7 @@ categories = [
   {hindi_name: "नामांतरण फॉर्म", eng_name: 'Namantaran Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में क्रय/विक्रय नामान्तरण से सम्बन्धित फॉर्म उपलब्ध है।"},
   {hindi_name: "फौती फॉर्म", eng_name: 'Fouti Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में फौती नामान्तरण से सम्बन्धित फॉर्म उपलब्ध है।"},
   {hindi_name: "सीमांकन फॉर्म", eng_name: 'Seemankan Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में भूमि सीमांकन से सम्बन्धित फॉर्म उपलब्ध है।"},
-  {hindi_name: "अन्य फॉर्म (पटवारी)", eng_name: 'Patwari Form', description: "यहॉं पर राजस्व के कार्य से सम्बन्धित पटवारी हेतु फार्म उपलब्ध है जैसे:- फॉर्म सी, फसल बुआई प्रमाण पत्र, पट्टा भूमि विक्रय हेतु अनुमति आवेदन, विक्रय इकरारनामा फॉर्म, राजस्व वसूली फॉर्म आदि।"},
+  {hindi_name: "पटवारी फॉर्म", eng_name: 'Patwari Form', description: "यहॉं पर राजस्व के कार्य से सम्बन्धित पटवारी हेतु फार्म उपलब्ध है जैसे:- फॉर्म सी, फसल बुआई प्रमाण पत्र, पट्टा भूमि विक्रय हेतु अनुमति आवेदन, विक्रय इकरारनामा फॉर्म, राजस्व वसूली फॉर्म आदि।"},
 ]
 
 
@@ -94,7 +94,10 @@ revenue_forms = {
     {eng_name: "Crop Sowing", form_name: "PT Crop Sowing", hindi_name: "फसल बुआई प्रमाण पत्र"},
     {eng_name: "Lease Land Sell Permission", form_name: "PT Lease Land Sell Permission", hindi_name: "पट्टा भूमि विक्रय हेतु अनुमति आवेदन"},
     {eng_name: "Land Selling Ikrarnama", form_name: "PT Land Selling Ikrarnama", hindi_name: "विक्रय इकरारनामा फॉर्म"},
-    {eng_name: "Revenue Demand Form", form_name: "PT Revenue Demand Form", hindi_name: "राजस्व वसूली फॉर्म"}
+    {eng_name: "Revenue Demand Form", form_name: "PT Revenue Demand Form", hindi_name: "राजस्व वसूली फॉर्म"},
+    {eng_name: "TRS Kharif Form", form_name: "PT TRS Kharif Form", hindi_name: "टीआरएस खरीफ फॉर्म"},
+    {eng_name: "TRS Rabi Form", form_name: "PT TRS Rabi Form", hindi_name: "टीआरएस रबी फॉर्म"},
+    {eng_name: "Crop Cutting Form", form_name: "PT Crop Cutting Form", hindi_name: "फसल कटाई प्रयोग फॉर्म"}
   ]
 }
 

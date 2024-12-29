@@ -3,10 +3,8 @@ class User < ApplicationRecord
   has_many :orders
   has_many :payment_transactions
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :validatable, :timeoutable, :confirmable,
+    :recoverable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   def is_admin
     self.role_id == 1

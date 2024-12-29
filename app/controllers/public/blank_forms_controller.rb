@@ -2,14 +2,15 @@ class Public::BlankFormsController < ApplicationController
 
   def index 
     @forms = BlankForm.all.order('form_category_id ASC')
-
+    @categories = FormCategory.all
     @forms = @forms.map{ |form| form.attributes.merge({
       cat_eng_name: form.form_category.eng_name,
       cat_hindi_name: form.form_category.hindi_name,
     })}
 
     render json: {
-      forms: @forms
+      forms: @forms,
+      categories: @categories
     }
   end
 

@@ -53,7 +53,18 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.action_mailer.default_url_options = { host: 'localhost', port:3000 }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.office365.com",
+    port:                 587,
+    domain:               Rails.application.secrets.domain_name,
+    user_name:            Rails.application.secrets.email,
+    password:             Rails.application.secrets.email_password, #ENV.fetch('EMAIL_PASSWORD'),
+    authentication:      'plain',
+    enable_starttls_auto: true
+  }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

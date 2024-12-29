@@ -9,8 +9,6 @@ class Request < ApplicationRecord
   has_one :payment_transaction, as: :transactionable
   has_many :khasra_battanks
 
-  paginates_per 10
-
   validates :title, :request_type_id, :year, presence: true 
 
   # accepts_nested_attributes_for :khasras, allow_destroy: true

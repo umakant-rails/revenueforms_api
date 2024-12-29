@@ -97,6 +97,8 @@ GEM
       logger
       zeitwerk (~> 2.6)
     erubi (1.13.0)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -211,6 +213,7 @@ DEPENDENCIES
   debug
   devise
   devise-jwt
+  fast_jsonapi
   pg
   puma (~> 5.0)
   rack-cors
