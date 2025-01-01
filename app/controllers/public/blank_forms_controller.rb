@@ -16,7 +16,6 @@ class Public::BlankFormsController < ApplicationController
 
   def get_districts
     @districts = District.order("code ASC")
-
     render json: { districts: @districts }
   end
 
@@ -28,7 +27,7 @@ class Public::BlankFormsController < ApplicationController
 
   def get_villages
     @tehsil = Tehsil.find(params[:tehsil_id]) rescue nil
-    @villages = @tehsil ? @tehsil.villages.order("village_code ASC") : nil
+    @villages = @tehsil ? @tehsil.villages.order("village_eng ASC") : nil
     @villages = @villages.map { | village |
       village.attributes.merge({district: village.district.name, tehsil: village.tehsil.name})
     }

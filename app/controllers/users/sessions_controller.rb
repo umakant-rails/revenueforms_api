@@ -3,6 +3,17 @@
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
 
+  def create
+    user = User.find_by(email: params[:user][:email])
+    if user.blank?
+      render json: { errors: ['Email not found'] }, status: :not_found
+    elsif user.valid_password?(params[:user][:password])
+      super
+    else
+      render json: { error: ['Invalid password']                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }, status: :unauthorized
+    end
+  end
+
   private
   def respond_with(current_user, _opts = {})
     render json: {

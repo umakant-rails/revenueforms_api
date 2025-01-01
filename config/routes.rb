@@ -12,6 +12,17 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
     }
 
+    resources :requests do
+      resources :participants do 
+        post '/mark_applicant' => "participants#mark_applicant", as: :mark_applicant, on: :member
+      end
+      resources :khasras do
+        get '/get_khasra_data' => "khasras#get_khasra_data", as: :get_khasra_data, on: :collection
+      end
+      get '/pending' => "requests#pending_request", as: :pending_request, on: :collection
+    end
+    resources :request_types, only: [:index]
+
     namespace :public, path: :pb do
       resources :form_sections do 
         get '/get_categories' => "form_sections#get_categories", as: :get_categories, on: :member 
