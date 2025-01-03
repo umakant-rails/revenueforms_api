@@ -30,6 +30,21 @@ class ParticipantsController < ApplicationController
     }
   end
 
+  def update
+    update_applicant_participant if params[:participant][:is_applicant] == 'true'
+    if @participant.update(participant_params)
+      # @participants = @request.participants
+      # @participants = @participants.map do | participant |
+      #   participant.attributes.merge({participant_type: participant.participant_type.name})
+      # end
+      @participant.attributes.merge({participant_type: @participant.participant_type.name})
+
+      render json: {
+        participant: @participant
+      }
+    end
+  end
+
   def destroy
     if @participant.destroy
       @participants = @request.participants

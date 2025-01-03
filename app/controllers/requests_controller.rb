@@ -20,8 +20,9 @@ class RequestsController < ApplicationController
       # participants:@participants, 
       # khasras: @khasras, 
       applicant: @request.applicant_name,
-      applicant_address: @request.participants.applicant.address
+      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble'
     })
+
     render json: {request: @request, participants: @participants, khasras: @khasras}
   end
 
@@ -44,6 +45,17 @@ class RequestsController < ApplicationController
     render json: {
       requests: @requests
     }
+  end
+
+  def destroy
+    if @request.destroy
+      @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.request_id is null or khasras.request_id is null").uniq
+      @requests = @requests.map do | request |
+        request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
+      end
+
+      render json: { requests: @requests, message: 'Request deleted successfully.' }
+    end
   end
 
   private

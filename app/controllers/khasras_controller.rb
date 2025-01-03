@@ -49,6 +49,15 @@ class KhasrasController < ApplicationController
     end
   end
 
+  def update
+    if @khasra.update(khasra_params)
+      @khasra = @khasra.attributes.merge({village: @khasra.village.village})
+      render json: {
+        khasra: @khasra
+      }
+    end
+  end
+
   def destroy
     if @khasra.destroy
       @khasras = @request.khasras
