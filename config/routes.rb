@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get '/get_khasra_data' => "khasras#get_khasra_data", as: :get_khasra_data, on: :collection
       end
       get '/pending' => "requests#pending_request", as: :pending_request, on: :collection
+      get 'request_detail' => "requests#request_detail", as: :request_detail, on: :member
     end
     resources :request_types, only: [:index]
 

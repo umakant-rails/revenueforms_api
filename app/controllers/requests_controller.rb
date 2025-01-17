@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_request, only: %i[ show edit update destroy ]
+  before_action :set_request, only: %i[ show edit update destroy request_detail]
   
   def index
     @requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq
@@ -17,8 +17,6 @@ class RequestsController < ApplicationController
     @participants = @request.participants && @request.participants.map{|p| p.attributes.merge({participant_type: p.participant_type.name})}
     @khasras = @request.khasras && @request.khasras.map{|k| k.attributes.merge({village: k.village.village})}
     @request = @request.attributes.merge({
-      # participants:@participants, 
-      # khasras: @khasras, 
       applicant: @request.applicant_name,
       applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble'
     })
@@ -56,6 +54,27 @@ class RequestsController < ApplicationController
 
       render json: { requests: @requests, message: 'Request deleted successfully.' }
     end
+  end
+
+  def request_detail
+    @participants = @request.participants && @request.participants.map{|p| p.attributes.merge({participant_type: p.participant_type.name})}
+    @khasras = @request.khasras && @request.khasras.order("village_id ASC").map{|k| 
+      k.attributes.merge({village: k.village.village, halka_number: k.village.halka_number})
+    }
+    
+    village = @request.village
+    @request = @request.attributes.merge({
+      applicant: @request.applicant_name,
+      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
+      village: village.village,
+      halka_number: village.halka_number,
+      halka_name: village.halka_name,
+      circle: village.ri,
+      tehsil: village.tehsil.name,
+      district: village.district.name
+    })
+
+    render json: {request: @request, participants: @participants, khasras: @khasras}
   end
 
   private

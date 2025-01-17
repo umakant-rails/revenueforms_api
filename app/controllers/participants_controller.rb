@@ -17,7 +17,8 @@ class ParticipantsController < ApplicationController
 
   def create
     @participant = @request.participants.new(participant_params)
-    update_applicant_participant if params[:participant][:is_applicant]
+
+    update_applicant_participant if params[:participant][:is_applicant] == 'true' 
     @participant.save
 
     @participants = @request.participants
@@ -51,7 +52,6 @@ class ParticipantsController < ApplicationController
       @participants = @participants.map do | participant |
         participant.attributes.merge({participant_type: participant.participant_type.name})
       end
-
       render json: {
         participants: @participants,
         message: 'Participant deleted successfully.'

@@ -314,7 +314,8 @@ Devise.setup do |config|
   config.mailer = 'DeviseMailer'
 
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.secret_key_base
+    jwt.secret = Rails.application.secrets.devise_jwt_secret_key
+    # Rails.application.credentials.secret_key_base
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
