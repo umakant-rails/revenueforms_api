@@ -12,6 +12,13 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
     }
 
+    namespace :admin, path: :admin do
+      resources :blog_subjects do
+        get '/get_subjects' => "blog_subjects#get_subjects", as: :get_subjects, on: :collection
+      end
+      resources :blog_posts
+    end
+
     resources :requests do
       resources :participants do 
         post '/mark_applicant' => "participants#mark_applicant", as: :mark_applicant, on: :member

@@ -40,6 +40,7 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'fast_jsonapi'
 gem "simple_xlsx_reader"
+gem 'kaminari'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
