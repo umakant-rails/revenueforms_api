@@ -45,6 +45,8 @@ Rails.application.routes.draw do
         get "/district/:district_id/get_tehsils" => "blank_forms#get_tehsils", as: :get_tehsils, on: :collection
         get "/tehsils/:tehsil_id/get_villages" => "blank_forms#get_villages", as: :get_villages, on: :collection
       end
+
+      resources :blog_posts
     end
   end
 end
