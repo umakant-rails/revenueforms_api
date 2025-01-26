@@ -9,4 +9,10 @@ class Public::BlogPostsController < ApplicationController
     render json: { posts: @posts, total_posts: total_posts, subjects: subjects }
   end
 
+  def show
+    post = BlogPost.find_by_title(params[:id])
+    post = post.attributes.merge({blog_subject: post.blog_subject.name})
+    render json: {post: post}
+  end
+
 end

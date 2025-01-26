@@ -19,6 +19,11 @@ class Admin::BlogPostsController < ApplicationController
     end
   end
 
+  def show
+    post = BlogPost.find(params[:id])
+    render json: {post: post}
+  end
+
   def update
     if @post.update(post_params)
       render json: { post: @post, message: 'Post updated successfully.'  }
@@ -36,7 +41,7 @@ class Admin::BlogPostsController < ApplicationController
     end
 
     def post_params
-      params.fetch(:blog_post).permit(:blog_subject_id, :title, :content)
+      params.fetch(:blog_post).permit(:blog_subject_id, :title, :content, :image, :video)
     end
 
 end

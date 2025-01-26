@@ -1,0 +1,2 @@
+class TrafficLog < ApplicationRecord
+end

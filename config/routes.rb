@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   scope(:path => '/api') do
     devise_for :users, path: 'users', path_names: {
       sign_in: 'login',
@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       passwords: 'users/passwords',
       confirmations: 'users/confirmations'
     }
+
+    post '/log_visit', to: 'traffic_logs#log_visit'
+    get '/traffic_logs', to: 'traffic_logs#show'
 
     namespace :admin, path: :admin do
       resources :blog_subjects do

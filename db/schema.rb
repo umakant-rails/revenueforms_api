@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_17_174431) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_23_180529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_17_174431) do
     t.string "form_name"
     t.string "category"
     t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blog_posts", force: :cascade do |t|
+    t.integer "blog_subject_id"
+    t.string "title"
+    t.text "content"
+    t.string "image"
+    t.string "video"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blog_subjects", force: :cascade do |t|
+    t.string "name"
+    t.string "name_eng"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -164,6 +181,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_17_174431) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "traffic_logs", force: :cascade do |t|
+    t.date "visit_date"
+    t.string "ip_address"
+    t.integer "visited_page"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "username"
@@ -219,6 +244,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_17_174431) do
     t.integer "ulpin_khasra"
     t.string "patwari_name"
     t.string "mobile"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "visitor_logs", force: :cascade do |t|
+    t.string "ip_address"
+    t.string "page_url"
+    t.date "visit_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
