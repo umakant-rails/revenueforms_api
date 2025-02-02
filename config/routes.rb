@@ -29,8 +29,15 @@ Rails.application.routes.draw do
       resources :khasras do
         get '/get_khasra_data' => "khasras#get_khasra_data", as: :get_khasra_data, on: :collection
       end
+      resources :khasra_battanks do
+        get '/get_khasra_batank_data' => "khasra_battanks#get_khasra_batank_data", as: :khasra_batank_data, on: :collection
+        post '/allote_khasra_to_hissedar' => "khasra_battanks#allote_khasra_to_hissedar", as: :allote_khasra_to_hissedar, on: :collection
+        post '/revoke_khasra_of_hissedar' => "khasra_battanks#revoke_khasra_of_hissedar", as: :revoke_khasra_of_hissedar, on: :collection
+      end
+
+      get '/edit' => "requests#edit", as: :edit, on: :member
       get '/pending' => "requests#pending_request", as: :pending_request, on: :collection
-      get 'request_detail' => "requests#request_detail", as: :request_detail, on: :member
+      get '/request_detail' => "requests#request_detail", as: :request_detail, on: :member
     end
     resources :request_types, only: [:index]
 

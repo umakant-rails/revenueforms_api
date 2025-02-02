@@ -3,6 +3,8 @@ class CreateRequests < ActiveRecord::Migration[7.0]
     create_table :requests do |t|
       t.string   :title
       t.integer  :request_type_id
+      t.integer  :district_id
+      t.integer  :tehsil_id
       t.integer  :village_id
       t.string   :registry_number
       t.date     :registry_date

@@ -5,13 +5,16 @@ class ParticipantsController < ApplicationController
   before_action :set_participant, only: %i[ show edit update destroy mark_applicant ]
 
   def index
-    @participants = @request.participants
-    @participants = @participants.map do | participant |
+    participants = @request.participants
+    participant_types = @request.get_participant_types
+    participants = participants.map do | participant |
       participant.attributes.merge({participant_type: participant.participant_type.name})
     end
 
     render json: {
-      participants: @participants
+      request: @request,
+      participant_types: participant_types,
+      participants: participants
     }
   end
 

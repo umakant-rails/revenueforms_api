@@ -18,7 +18,7 @@ class RequestsController < ApplicationController
     @khasras = @request.khasras && @request.khasras.map{|k| k.attributes.merge({village: k.village.village})}
     @request = @request.attributes.merge({
       applicant: @request.applicant_name,
-      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble'
+      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
     })
 
     render json: {request: @request, participants: @participants, khasras: @khasras}
@@ -34,14 +34,17 @@ class RequestsController < ApplicationController
     end
   end
 
-  def pending_request
-    @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.request_id is null or khasras.request_id is null").uniq
-    @requests = @requests.map do | request |
-      request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
-    end
-
+  def edit
+    districts = District.all
+    tehsils = @request.village.district.tehsils
+    villages = @request.village.tehsil.villages
+    request_types = RequestType.all
     render json: {
-      requests: @requests
+      request: @request, 
+      request_types: request_types, 
+      districts:districts, 
+      tehsils:tehsils, 
+      villages:villages
     }
   end
 
@@ -54,6 +57,17 @@ class RequestsController < ApplicationController
 
       render json: { requests: @requests, message: 'Request deleted successfully.' }
     end
+  end
+
+  def pending_request
+    @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.request_id is null or khasras.request_id is null").uniq
+    @requests = @requests.map do | request |
+      request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
+    end
+
+    render json: {
+      requests: @requests
+    }
   end
 
   def request_detail
@@ -86,7 +100,7 @@ class RequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def request_params
-      params.require(:request).permit(:title, :request_type_id, :year, :village_id, :registry_number, :registry_date)
+      params.require(:request).permit(:title, :request_type_id, :year, :district_id, :teshil_id, :village_id, :registry_number, :registry_date)
     end
 
 end
