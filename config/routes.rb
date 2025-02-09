@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :requests do
       resources :participants do 
         post '/mark_applicant' => "participants#mark_applicant", as: :mark_applicant, on: :member
+        get '/get_participant_types' => "participants#get_participant_types", as: :get_participant_types, on: :collection
       end
       resources :khasras do
         get '/get_khasra_data' => "khasras#get_khasra_data", as: :get_khasra_data, on: :collection

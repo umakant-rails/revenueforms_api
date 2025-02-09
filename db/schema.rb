@@ -118,18 +118,20 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_23_180529) do
     t.string "relation"
     t.string "gaurdian"
     t.string "address"
+    t.boolean "karanda_aam"
+    t.boolean "is_male", default: true
+    t.boolean "is_applicant", default: false
+    t.boolean "total_share_sold", default: false
     t.boolean "is_dead"
     t.date "death_date"
     t.boolean "is_nabalig"
     t.string "balee"
-    t.integer "parent_id"
-    t.integer "request_id"
     t.integer "depth"
     t.string "relation_to_deceased"
     t.boolean "is_shareholder", default: false
+    t.integer "parent_id"
+    t.integer "request_id"
     t.integer "participant_type_id"
-    t.boolean "total_share_sold", default: false
-    t.boolean "is_applicant", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -155,6 +157,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_23_180529) do
   create_table "requests", force: :cascade do |t|
     t.string "title"
     t.integer "request_type_id"
+    t.integer "district_id"
+    t.integer "tehsil_id"
     t.integer "village_id"
     t.string "registry_number"
     t.date "registry_date"

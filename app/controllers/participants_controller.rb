@@ -12,7 +12,7 @@ class ParticipantsController < ApplicationController
     end
 
     render json: {
-      request: @request,
+      request: @request.attributes.merge({village: @request.village.village}),
       participant_types: participant_types,
       participants: participants
     }
@@ -36,6 +36,7 @@ class ParticipantsController < ApplicationController
 
   def update
     update_applicant_participant if params[:participant][:is_applicant] == 'true'
+
     if @participant.update(participant_params)
       # @participants = @request.participants
       # @participants = @participants.map do | participant |
@@ -76,6 +77,11 @@ class ParticipantsController < ApplicationController
     }
   end
 
+  def get_participant_types
+    participant_types = @request.get_participant_types
+    render json: {participant_types: participant_types}
+  end
+
   private
 
     def update_applicant_participant
@@ -99,6 +105,6 @@ class ParticipantsController < ApplicationController
     def participant_params
       params.fetch(:participant).permit(:name, :relation, :gaurdian, :address, :is_dead, :death_date,
         :is_nabalig, :balee, :parent_id, :request_id, :depth, :relation_to_deceased, :is_shareholder,
-        :participant_type_id, :total_share_sold, :is_applicant)
+        :participant_type_id, :total_share_sold, :is_applicant, :is_male, :karanda_aam)
     end
 end
