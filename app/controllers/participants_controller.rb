@@ -7,12 +7,13 @@ class ParticipantsController < ApplicationController
   def index
     participants = @request.participants
     participant_types = @request.get_participant_types
-    participants = participants.map do | participant |
+ 
+    participants = participants && participants.map do | participant |
       participant.attributes.merge({participant_type: participant.participant_type.name})
     end
 
     render json: {
-      request: @request.attributes.merge({village: @request.village.village}),
+      request: @request.attributes.merge({village: @request.village}),
       participant_types: participant_types,
       participants: participants
     }
@@ -70,8 +71,14 @@ class ParticipantsController < ApplicationController
     @participants = @participants.map do | participant |
       participant.attributes.merge({participant_type: participant.participant_type.name})
     end
-    
+    @request = @request.attributes.merge({
+      applicant: @request.applicant_name,
+      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
+      village: @request.village
+    })
+
     render json: {
+      request: @request,
       participants: @participants,
       message: 'Participants marked as applicant successfully.'
     }

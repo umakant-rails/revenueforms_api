@@ -34,15 +34,15 @@ class KhasraBattanksController < ApplicationController
 
   # POST /khasra_battanks or /khasra_battanks.json
   def create
-    permitted_params = params.permit(khasra_battank: [:khasra_id, :new_khasra, :rakba]).fetch(:khasra_battank)
+    permitted_params = params.permit(khasra_battank: [:khasra_id, :village_id, :new_khasra, :rakba]).fetch(:khasra_battank)
     battanks = @request.khasra_battanks.create(permitted_params)
 
     if battanks
-      new_khasra_battanks = @request.khasra_battanks
+      set_required_data
       render json: { 
         khasra_battanks: battanks, 
-        new_khasra_battanks: new_khasra_battanks,
-        battank_created_khasra: new_khasra_battanks.pluck(:khasra_id).uniq, 
+        new_khasra_battanks: @new_khasra_battanks,
+        battank_created_khasra: @new_khasra_battanks.pluck(:khasra_id).uniq, 
         message: 'New Battank created successfully.'
       }
     else
@@ -64,7 +64,7 @@ class KhasraBattanksController < ApplicationController
 
     @khasra_battanks = @request.khasra_battanks.where(id: params[:khasras])
     if @khasra_battanks.update_all(params_to_update)
-      get_hissedar_battanks
+      set_required_data
       render json: {
         hissedar_battanks:@hissedar_battanks, 
         new_khasra_battanks: @new_khasra_battanks,
@@ -75,7 +75,7 @@ class KhasraBattanksController < ApplicationController
 
   def revoke_khasra_of_hissedar
     if KhasraBattank.where(participant_ids: params[:participant_ids]).update_all({participant_ids: '', group_id: nil})
-      get_hissedar_battanks
+      set_required_data
       render json: {
         hissedar_battanks:@hissedar_battanks,
         new_khasra_battanks: @new_khasra_battanks,
@@ -89,7 +89,7 @@ class KhasraBattanksController < ApplicationController
     if khasra.khasra_battanks.destroy_all
       @khasras = @request.khasras rescue nil
       @new_khasra_battanks = @request.khasra_battanks.where("group_id is null").order("new_khasra ASC")
-      get_hissedar_battanks
+      hissedar_battanks = @request.get_hissedar_battanks
 
       render json: {
         # hissedars: @hissedars,
@@ -97,7 +97,7 @@ class KhasraBattanksController < ApplicationController
         khasras: @khasras,
         new_khasra_battanks: @new_khasra_battanks,
         battank_created_khasra: @new_khasra_battanks.pluck(:khasra_id).uniq,
-        hissedar_battanks: @hissedar_battanks,
+        hissedar_battanks: hissedar_battanks,
         message: 'Khasra Battank deleted successfully.'
       }
     end
@@ -108,11 +108,12 @@ class KhasraBattanksController < ApplicationController
       @hissedars = @request.participants.hissedar rescue nil
       @land_owners = @request.participants.land_owner rescue nil
       @khasras = @request.khasras rescue nil
+      @khasras = @khasras.map{|k| k.attributes.merge({village: k.village})}
       @new_khasra_battanks = @request.khasra_battanks.where("group_id is null") rescue nil
-      get_hissedar_battanks
+      @hissedar_battanks = @request.get_hissedar_battanks
     end
 
-    def get_hissedar_battanks
+    def get_hissedar_battanks1
       @new_khasra_battanks = @request.khasra_battanks.where("group_id is null").order("new_khasra asc") rescue nil
       @hissedar_battanks = @request.khasra_battanks.where("group_id is not null").order("group_id ASC") #.pluck(:participant_ids).uniq
       group_id_count = @hissedar_battanks.group("group_id").count
@@ -127,6 +128,8 @@ class KhasraBattanksController < ApplicationController
           participant_names = participants.join(", ")
         end
         hissedar.attributes.merge({
+          village_name: hissedar.village,
+          village_code: hissedar.village.village_code,
           hissedars: participant_names, 
           khasra_count:group_id_count[hissedar.group_id]
         })

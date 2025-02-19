@@ -15,7 +15,7 @@ class KhasrasController < ApplicationController
     })
     
     @khasras = @khasras.map do | khasra |
-      khasra.attributes.merge({village: khasra.village.village})
+      khasra.attributes.merge({village: khasra.village})
     end
 
     render json: {
@@ -29,13 +29,13 @@ class KhasrasController < ApplicationController
 
   def create
     @khasra = @request.khasras.new(khasra_params)
-    kh =  @request.khasras.where(khasra: params[:khasra][:khasra])
+    kh =  @request.khasras.where(khasra: params[:khasra][:khasra], village_id: params[:khasra][:village_id])
 
     if kh.blank? && params[:khasra][:khasra].present?
       if @khasra.save!
         @khasras = @request.khasras
         @khasras = @khasras.map do | khasra |
-          khasra.attributes.merge({village: khasra.village.village})
+          khasra.attributes.merge({village: khasra.village})
         end
 
         render json: {
@@ -51,7 +51,7 @@ class KhasrasController < ApplicationController
 
   def update
     if @khasra.update(khasra_params)
-      @khasra = @khasra.attributes.merge({village: @khasra.village.village})
+      @khasra = @khasra.attributes.merge({village: @khasra.village})
       render json: {
         khasra: @khasra
       }
@@ -62,7 +62,7 @@ class KhasrasController < ApplicationController
     if @khasra.destroy
       @khasras = @request.khasras
       @khasras = @khasras.map do | khasra |
-        khasra.attributes.merge({village: khasra.village.village})
+        khasra.attributes.merge({village: khasra.village})
       end
 
       render json: {

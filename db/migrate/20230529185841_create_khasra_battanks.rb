@@ -7,6 +7,7 @@ class CreateKhasraBattanks < ActiveRecord::Migration[7.0]
       t.integer :request_id
       t.string  :participant_ids
       t.string  :group_id
+      t.integer :village_id
 
       t.timestamps
     end

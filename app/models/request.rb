@@ -8,17 +8,7 @@ class Request < ApplicationRecord
   has_many :participant_types, through: :request_type
   has_one :payment_transaction, as: :transactionable
   has_many :khasra_battanks, dependent: :destroy
-
-  # accepts_nested_attributes_for :khasra_battanks
-
-  validates :title, :request_type_id, :year, presence: true 
-  # accepts_nested_attributes_for :khasras, allow_destroy: true
-
-  # UNITS = ['व.फु.', 'व.मी.', 'हे.']
-  # TEMPLATES = [['प्रारूप-35', 'pdf-paragraph-35'], ['प्रारूप-40', 'pdf-paragraph-40'], ['प्रारूप-45', 'pdf-paragraph-45']]
-  # FAUTI_ORDER_PRAROOP = [["आदेश प्रारूप-1", "p1"], ["आदेश प्रारूप-2", "p2"], ["आदेश प्रारूप-3", "p3"]]
-  # NAMANTARAN_ORDER_PRAROOP = [["आदेश प्रारूप-1", "p1"], ["आदेश प्रारूप-2", "p2"]]
-  # SANJARA_PRAROOP = [["संजरा प्रारूप-1", "p1"], ["संजरा प्रारूप-2", "p2"]]
+  validates :title, :request_type_id, :year, presence: true  
 
   def self.current_revenue_year
     year_range = Date.parse("01/04/#{Date.today.year}")..Date.parse("01/04/#{Date.today.year+1}")
@@ -42,6 +32,31 @@ class Request < ApplicationRecord
     elsif self.request_type.name.index("बटवारा") >= 0
       ParticipantType.where("name in (?)",  ["मूल भू स्वामी", "नए हिस्सेदार", "मूल भू स्वामी एवं हिस्सेदार"])
     end
+  end
+
+  def get_hissedar_battanks
+    new_khasra_battanks = self.khasra_battanks.where("group_id is null").order("new_khasra asc") rescue nil
+    hissedar_battanks = self.khasra_battanks.where("group_id is not null").order("group_id ASC") #.pluck(:participant_ids).uniq
+    group_id_count = hissedar_battanks.group("group_id").count
+    participant_ids = ''
+    participant_names = ''
+
+    hissedar_battanks = hissedar_battanks.map.with_index do |kh_battank, index| 
+      if(participant_ids != kh_battank.participant_ids)
+        participant_ids = kh_battank.participant_ids
+        participants = Participant.where("id in (?)", participant_ids.split(","))
+        participants = participants.map{ |p| "#{p.name} #{p.relation} #{p.gaurdian}" }
+        participant_names = participants.join(", ")
+      end
+      village = kh_battank.village.attributes.merge({tehsil: kh_battank.village.tehsil.name})
+      kh_battank.attributes.merge({
+        village: village,
+        hissedars: participant_names,
+        khasra_count:group_id_count[kh_battank.group_id]
+      })
+    end
+
+    return hissedar_battanks
   end
 
 end

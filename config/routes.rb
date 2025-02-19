@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get '/edit' => "requests#edit", as: :edit, on: :member
       get '/pending' => "requests#pending_request", as: :pending_request, on: :collection
       get '/request_detail' => "requests#request_detail", as: :request_detail, on: :member
+      get '/batwara_detail' => "requests#batwara_detail", as: :batwara_detail, on: :member
     end
     resources :request_types, only: [:index]
 

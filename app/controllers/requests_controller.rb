@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_request, only: %i[ show edit update destroy request_detail]
+  before_action :set_request, only: %i[ show edit update destroy request_detail batwara_detail]
   
   def index
     @requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq
@@ -15,10 +15,11 @@ class RequestsController < ApplicationController
 
   def show
     @participants = @request.participants && @request.participants.map{|p| p.attributes.merge({participant_type: p.participant_type.name})}
-    @khasras = @request.khasras && @request.khasras.map{|k| k.attributes.merge({village: k.village.village})}
+    @khasras = @request.khasras && @request.khasras.map{|k| k.attributes.merge({village: k.village})}
     @request = @request.attributes.merge({
       applicant: @request.applicant_name,
       applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
+      village: @request.village
     })
 
     render json: {request: @request, participants: @participants, khasras: @khasras}
@@ -26,7 +27,6 @@ class RequestsController < ApplicationController
 
   def create
     @request = current_user.requests.new(request_params)
-
     if @request.save
       render json: { request: @request, message: "Request was created successfully."}
     else
@@ -48,6 +48,15 @@ class RequestsController < ApplicationController
     }
   end
 
+   def update
+      if @request.update(request_params)
+        req_status = (@request.participants.length==0 || @request.khasras.length ==0) ? 'pending' : 'complete'
+        render json: { request: @request, req_status: req_status, message: "Request was created successfully."}
+      else
+        render json: { request: @request.errors, error: @request.errors.full_messages }
+      end
+    end
+
   def destroy
     if @request.destroy
       @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.request_id is null or khasras.request_id is null").uniq
@@ -60,7 +69,7 @@ class RequestsController < ApplicationController
   end
 
   def pending_request
-    @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.request_id is null or khasras.request_id is null").uniq
+    @requests = current_user.requests.left_joins([:participants, :khasras]).where("participants.id is null or khasras.id is null").distinct
     @requests = @requests.map do | request |
       request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
     end
@@ -71,24 +80,20 @@ class RequestsController < ApplicationController
   end
 
   def request_detail
-    @participants = @request.participants && @request.participants.map{|p| p.attributes.merge({participant_type: p.participant_type.name})}
-    @khasras = @request.khasras && @request.khasras.order("village_id ASC").map{|k| 
-      k.attributes.merge({village: k.village.village, halka_number: k.village.halka_number})
-    }
-    
-    village = @request.village
-    @request = @request.attributes.merge({
-      applicant: @request.applicant_name,
-      applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
-      village: village.village,
-      halka_number: village.halka_number,
-      halka_name: village.halka_name,
-      circle: village.ri,
-      tehsil: village.tehsil.name,
-      district: village.district.name
-    })
-
+    request_data
     render json: {request: @request, participants: @participants, khasras: @khasras}
+  end
+
+  def batwara_detail
+    hissedar_battanks = @request.get_hissedar_battanks
+    request_data
+    
+    render json: {
+      request: @request, 
+      participants: @participants, 
+      khasras: @khasras, 
+      hissedar_battanks: hissedar_battanks
+    }
   end
 
   private
@@ -101,6 +106,27 @@ class RequestsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def request_params
       params.require(:request).permit(:title, :request_type_id, :year, :district_id, :teshil_id, :village_id, :registry_number, :registry_date)
+    end
+
+    def request_data
+      @participants = @request.participants && @request.participants.map{|p| p.attributes.merge({participant_type: p.participant_type.name})}
+      @khasras = @request.khasras && @request.khasras.order("village_id ASC").map{|k|
+        village = k.village.attributes.merge({tehsil: k.village.tehsil.name}) 
+        k.attributes.merge({ village: village });
+      }
+      
+      village = @request.village
+      @request = @request.attributes.merge({
+        applicant: @request.applicant_name,
+        applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
+        village: village,
+        circle: village.ri
+        # halka_number: village.halka_number,
+        # halka_name: village.halka_name,
+        # circle: village.ri,
+        # tehsil: village.tehsil.name,
+        # district: village.district.name
+      })
     end
 
 end

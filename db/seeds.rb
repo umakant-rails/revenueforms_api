@@ -84,6 +84,8 @@ revenue_forms = {
     {eng_name: "Patwari Prativedan", form_name: "FT Patwari Prativedan", hindi_name: "पटवारी प्रतिवेदन"}
   ],
   "Seemankan Form" => [
+    {eng_name: "Ordersheet First", form_name: "SM Ordersheet First", hindi_name: "ऑर्डरशीट प्रथम"},
+    {eng_name: "RI Letter", form_name: "SM RI Letter", hindi_name: "आर आई पत्र"},
     {eng_name: "Seemankan Form1", form_name: "Seemankan Form1", hindi_name: "सीमांकन फॉर्म - प्रथम"},
     {eng_name: "Seemankan Form2", form_name: "Seemankan Form2", hindi_name: "सीमांकन फॉर्म - द्वितीय"},
     {eng_name: "Seemankan Form3", form_name: "Seemankan Form3", hindi_name: "सीमांकन फॉर्म - तृतीय"},

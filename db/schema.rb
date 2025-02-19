@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_23_180529) do
     t.integer "request_id"
     t.string "participant_ids"
     t.string "group_id"
+    t.integer "village_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
