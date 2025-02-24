@@ -27,6 +27,7 @@ categories = [
   {hindi_name: "फौती फॉर्म", eng_name: 'Fouti Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में फौती नामान्तरण से सम्बन्धित फॉर्म उपलब्ध है।"},
   {hindi_name: "सीमांकन फॉर्म", eng_name: 'Seemankan Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में भूमि सीमांकन से सम्बन्धित फॉर्म उपलब्ध है।"},
   {hindi_name: "पटवारी फॉर्म", eng_name: 'Patwari Form', description: "यहॉं पर राजस्व के कार्य से सम्बन्धित पटवारी हेतु फार्म उपलब्ध है जैसे:- फॉर्म सी, फसल बुआई प्रमाण पत्र, पट्टा भूमि विक्रय हेतु अनुमति आवेदन, विक्रय इकरारनामा फॉर्म, राजस्व वसूली फॉर्म आदि।"},
+  {hindi_name: "नाबालिगी खारिज फार्म", eng_name: 'Nabaligi Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में दर्ज नाबालिग किसान को बालिग दर्ज करने से सम्बन्धित फॉर्म उपलब्ध है।"},
 ]
 
 
@@ -100,7 +101,15 @@ revenue_forms = {
     {eng_name: "TRS Kharif Form", form_name: "PT TRS Kharif Form", hindi_name: "टीआरएस खरीफ फॉर्म"},
     {eng_name: "TRS Rabi Form", form_name: "PT TRS Rabi Form", hindi_name: "टीआरएस रबी फॉर्म"},
     {eng_name: "Crop Cutting Form", form_name: "PT Crop Cutting Form", hindi_name: "फसल कटाई प्रयोग फॉर्म"}
-  ]
+  ],
+  "Nabaligi Form" => [ 
+    {eng_name: "Ordersheet First", form_name: "NB Ordersheet First", hindi_name: "ऑर्डरशीट प्रथम"},
+    {eng_name: "Ordersheet Second", form_name: "NB Ordersheet Second", hindi_name: "ऑर्डरशीट द्वितीय"},
+    {eng_name: "Applicant Application", form_name: "NB Applicant Application", hindi_name: "आवेदक आवेदन"},
+    {eng_name: "Applicant Affidavit", form_name: "NB Applicant Affidavit", hindi_name: "आवेदक शपथ पत्र"},
+    {eng_name: "Ishtihar", form_name: "NB Ishtihar", hindi_name: "इश्तिहार"},
+    {eng_name: "Patwari Prativedan", form_name: "NB Patwari Prativedan", hindi_name: "पटवारी प्रतिवेदन"}
+  ],
 }
 
 rev_form_section = FormSection.where(eng_name: "Revenue", hindi_name: "राजस्व").first

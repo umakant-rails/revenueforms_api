@@ -3,13 +3,12 @@ class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show edit update destroy request_detail batwara_detail]
   
   def index
-    @requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq
-    @requests = @requests.map do | request |
-      request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
-    end
+    request_py_page
 
     render json: {
-      requests: @requests
+      requests: @requests,
+      total_requests: @total_requests,
+      page: @page
     }
   end
 
@@ -98,6 +97,18 @@ class RequestsController < ApplicationController
 
   private
 
+    def request_py_page
+      @page = params[:page].present? ? params[:page] : 1
+      # @requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq.page(@page).per(10)
+      # @total_requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq.count #@requests.total_pages
+      @requests = current_user.requests.joins([:participants, :khasras]).order("created_At DESC").uniq #
+      @total_requests = @requests.count
+      @requests = Kaminari.paginate_array(@requests).page(@page).per(10)
+      @requests = @requests.map do | request |
+        request.attributes.merge({username: current_user.username, request_type: request.request_type.name})
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.find(params[:id])
@@ -121,11 +132,6 @@ class RequestsController < ApplicationController
         applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
         village: village,
         circle: village.ri
-        # halka_number: village.halka_number,
-        # halka_name: village.halka_name,
-        # circle: village.ri,
-        # tehsil: village.tehsil.name,
-        # district: village.district.name
       })
     end
 
