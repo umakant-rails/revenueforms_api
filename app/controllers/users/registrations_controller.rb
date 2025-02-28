@@ -32,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: {
         user: UserSerializer.new(resource).serializable_hash[:data][:attributes],
         confirmation_token: resource.confirmation_token,
-        message: 'You have signed up sucessfully.'
+        message: 'You have signed up sucessfully. You will receive an email with instructions for how to confirm your email address in a few minutes.'
       }
     else
       render json: {
