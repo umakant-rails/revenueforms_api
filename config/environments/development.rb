@@ -34,7 +34,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -62,7 +62,7 @@ Rails.application.configure do
     domain:               Rails.application.secrets.domain_name,
     user_name:            Rails.application.secrets.email,
     password:             Rails.application.secrets.email_password, #ENV.fetch('EMAIL_PASSWORD'),
-    authentication:      'plain',
+    authentication:      'login',
     enable_starttls_auto: true
   }
   # Raises error for missing translations.

@@ -26,7 +26,7 @@ class Users::PasswordsController < Devise::PasswordsController
       super
     else
       @password_action = 'update_without_token'
-      if !current_user.compare_current_passowrd(params[:user][:current_password])
+      if current_user && !current_user.compare_current_passowrd(params[:user][:current_password])
         render json: {error: ['Your current password is wrong.'], password_changed: false}
       elsif (params[:user][:password] == params[:user][:password_confirmation])
         current_user.change_password!(params[:user][:password])

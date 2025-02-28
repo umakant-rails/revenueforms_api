@@ -52,6 +52,7 @@ revenue_forms = {
     {eng_name: "Sambal Form", form_name: "LK Sambal Form",hindi_name: "सम्बल आवेदन पत्र"},
     {eng_name: "EWS Form", form_name: "LK EWS Form",hindi_name: "ई डब्ल्यू एस आवेदन पत्र"},
     {eng_name: "BPL Form", form_name: "LK BPL Form",hindi_name: "बी पी एल आवेदन पत्र"},
+    {eng_name: "Marriage Form", form_name: "LK Marriage Form",hindi_name: "विवाह पंजीयन फॉर्म"},
     {eng_name: "Digital Copy Application", form_name: "LK Digital Copy Application",hindi_name: "डिजिटल प्रतिलिपि (खसरा/नक्शा/आदेश) आवेदन"},
     {eng_name: "Record Room Copy Application", form_name: "LK Record Room Copy Application", hindi_name: "रिकार्डरूम प्रतिलिपि (खसरा/नक्शा/आदेश) आवेदन"},
   ],

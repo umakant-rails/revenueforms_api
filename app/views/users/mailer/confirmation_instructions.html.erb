@@ -1,7 +1,7 @@
 <div class="" style="font-size: 16px">
 	<p>Welcome <%= @resource.username %>!</p>
 	<div style="">
-		You have created new account at <span style="color: #15c;">https://brijras.com</span> with following Email and Username:
+		You have created new account at <span style="color: #15c;">https://revenueforms.com</span> with following Email and Username:
 	<div>
 	<div>
 		<span style="font-weight: bold;text-decoration: none;">Email : <%= @resource.email %></span>
@@ -12,7 +12,7 @@
 	<div>
 		For account activation, you can confirm your account email through the link below:
 	</div>
-	<div style="margin-top: 20px;">
+	<div style="margin-top: 15px; margin-bottom: 15px;">
 		<a style="background: #15c;color: white;padding: 8px 16px;border-radius: 6px;font-size: 16px;text-decoration: none;font-weight:bold;" href="https://<%= @host_name %>/users/confirmation?confirmation_token=<%= @token %>">Confirm my account</a>
 	</div>
 	<div>
@@ -20,6 +20,6 @@
 	</div>
 	<div style="margin-top: 40px;">
 		<div style="font-weight: bold;">From,</div>
-		<div>BrijRas.com</div>
+		<div>RevenueForms Team</div>
 	</div>
 </div>

@@ -3,16 +3,15 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
-
   def create
     error = []
-    @user = User.where("email = ? or username = ?", params[:user][:email], params[:user][:username]).first rescue nil
+    user_temp = User.where("email = ? or username = ?", params[:user][:email], params[:user][:username]).first rescue nil
     username = params[:user][:username]
 
-    if @user && (@user.email == params[:user][:email])
+    if user_temp && (user_temp.email == params[:user][:email])
       error.push("Email is already Exist.")
     end
-    if @user && (@user.username == username)
+    if user_temp && (user_temp.username == username)
       error.push("Username is already taken.")
     end 
     if username && (username.length < 6 || username.length > 14 )
@@ -20,11 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     if @user && error
-      render json: {
-        user: @user,
-        error: error,
-        status: 422
-      }
+      render json: { user: user_temp, error: error, status: 422 }
     else
       super
     end
@@ -45,4 +40,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }, status: :unprocessable_entity
     end
   end
+
 end
