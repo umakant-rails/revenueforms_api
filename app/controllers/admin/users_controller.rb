@@ -6,7 +6,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find(params[:id])    
     if @user.role_id != 1
       @user.destroy
       set_user_data
@@ -17,7 +17,7 @@ class Admin::UsersController < ApplicationController
   private
 
     def set_user_data
-      @page = params[:page].present? ? params[:page] : 1
+      @page = params[:page].present? ? params[:page].to_i : 1
       @userss = User.where("role_id!=1")
         .select("id, email, username, mobile, is_order_display, created_at, updated_at, confirmed_at")
         .order("created_at DESC").page(@page).per(10)
