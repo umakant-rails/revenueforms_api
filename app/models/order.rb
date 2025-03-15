@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  include OrderConcerns::Razorpay
+  # include OrderConcerns::Razorpay
   belongs_to :user
   has_one :order_transaction, as: :transactionable
 
