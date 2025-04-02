@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     get '/traffic_logs', to: 'traffic_logs#show'
 
     namespace :admin, path: :admin do
-      resources :dashboards
+      resources :dashboards, only: [:index] do 
+        get '/visited_pages' => "dashboards#visited_page}", as: :visited_pages, on: :collection
+      end
       resources :users, only: [:index, :show, :destroy]
       resources :requests, only: [:index, :show]
       resources :blog_subjects do
