@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
-  has_many :requests
+  has_many :requests, dependent: :destroy
   has_many :orders
   has_many :payment_transactions
 
