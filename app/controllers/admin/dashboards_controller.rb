@@ -2,7 +2,7 @@ class Admin::DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    page = params[page].present? ? params[:page] : 1
+    page = params[:page].present? ? params[:page] : 1
     visitors = VisitorLog.where(visit_date: Date.today())
     today_visited_page = visitors.count
     today_visited_people = visitors.pluck(:ip_address).uniq.count
@@ -15,5 +15,5 @@ class Admin::DashboardsController < ApplicationController
       user_by_visited_pages: user_by_visited_pages
     }
   end
-
+  
 end
