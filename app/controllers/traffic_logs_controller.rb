@@ -1,20 +1,13 @@
 class TrafficLogsController < ApplicationController
   # Log a visit
   def log_visit
-    # Get the current date
-    today = Date.today
-
-    # Get the page URL from the request body
-    page_url = params[:page_url] # This will capture the 'page_url' sent from the frontend
-
-    # Get visitor details: IP address
-    ip_address = request.remote_ip
-
-    # Log individual visit in VisitorLog
-    VisitorLog.create(ip_address: ip_address, page_url: page_url, visit_date: today)
-
-    # Update daily traffic log
-    update_traffic_log(today)
+    # debugger
+    if !params[:page_url].start_with?('http://localhost:3000/admin') && !params[:page_url].start_with?('http://localhost:3000/users')
+      today = Date.today
+      page_url = params[:page_url]
+      ip_address = request.remote_ip
+      VisitorLog.create(ip_address: ip_address, page_url: page_url, visit_date: today)
+    end
 
     render json: { status: 'success' }, status: :ok
   end
