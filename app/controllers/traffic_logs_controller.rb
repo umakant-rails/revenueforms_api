@@ -1,7 +1,6 @@
 class TrafficLogsController < ApplicationController
   # Log a visit
   def log_visit
-    # debugger
     if !params[:page_url].start_with?('http://localhost:3000/admin') && !params[:page_url].start_with?('http://localhost:3000/users')
       today = Date.today
       page_url = params[:page_url]
