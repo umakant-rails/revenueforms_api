@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
     namespace :admin, path: :admin do
       resources :dashboards, only: [:index] do 
-        get '/visited_pages' => "dashboards#visited_page}", as: :visited_pages, on: :collection
+        get '/visited_pages' => "dashboards#visited_pages", as: :visited_pages, on: :collection
+        get '/visited_users' => "dashboards#visited_users", as: :visited_users, on: :collection
       end
       resources :users, only: [:index, :show, :destroy]
       resources :requests, only: [:index, :show]

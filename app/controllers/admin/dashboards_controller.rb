@@ -5,19 +5,27 @@ class Admin::DashboardsController < ApplicationController
     date_str = params[:date].present? ? params[:date] : Date.today()
     page = params[:page].present? ? params[:page] : 1
     @visitors = VisitorLog.where(visit_date: date_str)
-    today_visited_page = @visitors.count
-    today_visited_people = @visitors.pluck(:ip_address).uniq.count
-    user_by_visited_pages = @visitors.select("ip_address, count(*) as visit_count")
-      .group("ip_address").order("visit_count DESC").page(page).per(10)
-    
+    visited_user_data(page)
     visited_page_data(page)
 
     render json: {
-      today_visited_page: today_visited_page,
-      today_visited_people: today_visited_people,
-      user_by_visited_pages: user_by_visited_pages,
-      total_visited_page: @total_visited_page,
-      visited_pages: @visited_pages,
+      total_number_visited_pages: @total_number_visited_pages,
+      visited_people_details: @visited_people_details,
+      total_visited_people: @total_visited_people,
+      visited_page_details: @visited_page_details,
+      total_visited_pages: @total_visited_pages
+    }
+  end
+  
+  def visited_users
+    date_str = params[:date].present? ? params[:date] : Date.today()
+    page = params[:page].present? ? params[:page] : 1
+    @visitors = VisitorLog.where(visit_date: date_str)
+    visited_user_data(page);
+
+    render json: {
+      visited_people_details: @visited_people_details,
+      total_visited_people: @total_visited_people,
     }
   end
 
@@ -28,16 +36,23 @@ class Admin::DashboardsController < ApplicationController
     visited_page_data(page);
 
     render json: {
-      total_visited_page: @total_visited_page,
-      visited_pages: @visited_pages,
+      visited_page_details: @visited_page_details,
+      total_visited_pages: @total_visited_pages,
     }
   end
 
   private
 
+    def visited_user_data(page)
+      @total_visited_people = @visitors.pluck(:ip_address).uniq.count
+      @visited_people_details = @visitors.select("ip_address, count(*) as visit_count")
+      .group("ip_address").order("visit_count DESC").page(page).per(10)
+    end
+
     def visited_page_data(page)
-      @total_visited_page = @visitors.pluck(:page_url).uniq.count
-      @visited_pages = @visitors.select("page_url, count(*) as visit_count")
+      @total_number_visited_pages = @visitors.count
+      @total_visited_pages = @visitors.pluck(:page_url).uniq.count
+      @visited_page_details = @visitors.select("page_url, count(*) as visit_count")
         .group("page_url").order("visit_count DESC").page(page).per(10)
     end
   
