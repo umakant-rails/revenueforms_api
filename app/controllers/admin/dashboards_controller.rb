@@ -5,10 +5,16 @@ class Admin::DashboardsController < ApplicationController
     date_str = params[:date].present? ? params[:date] : Date.today()
     page = params[:page].present? ? params[:page] : 1
     @visitors = VisitorLog.where(visit_date: date_str)
+
+    last_week_visits = VisitorLog.where("visit_date >= ?", 1.week.ago)
+      .select("visit_date, COUNT(*) AS visit_count, COUNT(DISTINCT ip_address) AS people")
+      .group("visit_date").order("visit_date ASC")
+
     visited_user_data(page)
     visited_page_data(page)
 
     render json: {
+      last_week_visits: last_week_visits,
       total_number_visited_pages: @total_number_visited_pages,
       visited_people_details: @visited_people_details,
       total_visited_people: @total_visited_people,
