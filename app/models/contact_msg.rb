@@ -1,0 +1,2 @@
+class ContactMsg < ApplicationRecord
+end

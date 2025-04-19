@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get '/get_subjects' => "blog_subjects#get_subjects", as: :get_subjects, on: :collection
       end
       resources :blog_posts
+      resources :contact_msgs, only: [:index, :show, :destroy]
     end
 
     resources :requests do
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
       get '/batwara_detail' => "requests#batwara_detail", as: :batwara_detail, on: :member
     end
     resources :request_types, only: [:index]
+    resources :contact_msgs, only: [:create]
 
     namespace :public, path: :pb do
       resources :form_sections do 
