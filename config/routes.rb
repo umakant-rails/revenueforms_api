@@ -66,6 +66,9 @@ Rails.application.routes.draw do
         get "/tehsils/:tehsil_id/get_villages" => "blank_forms#get_villages", as: :get_villages, on: :collection
       end
 
+      post 'font_converters/read_docx', to: 'font_converters#read_docx'
+      post 'font_converters/write_docx', to: 'font_converters#write_docx'
+
       resources :blog_posts
     end
   end

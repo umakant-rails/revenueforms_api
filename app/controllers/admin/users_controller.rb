@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
     set_user_data
     render json: { users: @users, total_users: @total_users, page: @page }

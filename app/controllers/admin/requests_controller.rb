@@ -1,5 +1,6 @@
 class Admin::RequestsController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
     @page = params[:page].present? ? params[:page] : 1
     @requests = Request.includes([:participants, :khasras]).order("created_At DESC").page(@page).per(10)

@@ -1,4 +1,5 @@
 class Admin::ContactMsgsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_contact_msg, only: %i[ show destroy ]
   # GET /contact_msgs
   def index

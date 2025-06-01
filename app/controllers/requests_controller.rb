@@ -125,13 +125,13 @@ class RequestsController < ApplicationController
         village = k.village.attributes.merge({tehsil: k.village.tehsil.name}) 
         k.attributes.merge({ village: village });
       }
-      
-      village = @request.village
+
+      village = @request.village.attributes.merge({tehsil: @request.village.tehsil.name})
       @request = @request.attributes.merge({
         applicant: @request.applicant_name,
         applicant_address: @request.applicant.present? ? @request.applicant.address : 'Not Avaialble',
         village: village,
-        circle: village.ri
+        circle:  @request.village.ri
       })
     end
 
