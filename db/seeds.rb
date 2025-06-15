@@ -93,7 +93,7 @@ revenue_forms = {
     {eng_name: "Seemankan Form3", form_name: "Seemankan Form3", hindi_name: "सीमांकन फॉर्म - तृतीय"},
     {eng_name: "Seemankan Suchna Patra", form_name: "Seemankan Suchna Patra", hindi_name: "सीमांकन सूचना पत्र"}
   ],
-  "Patwari Form" => [
+  "Revenue Form" => [
     {eng_name: "Form C", form_name: "PT Form C", hindi_name: "फॉर्म सी"},
     {eng_name: "Crop Sowing", form_name: "PT Crop Sowing", hindi_name: "फसल बुआई प्रमाण पत्र"},
     {eng_name: "Lease Land Sell Permission", form_name: "PT Lease Land Sell Permission", hindi_name: "पट्टा भूमि विक्रय हेतु अनुमति आवेदन"},
@@ -101,7 +101,18 @@ revenue_forms = {
     {eng_name: "Revenue Demand Form", form_name: "PT Revenue Demand Form", hindi_name: "राजस्व वसूली फॉर्म"},
     {eng_name: "TRS Kharif Form", form_name: "PT TRS Kharif Form", hindi_name: "टीआरएस खरीफ फॉर्म"},
     {eng_name: "TRS Rabi Form", form_name: "PT TRS Rabi Form", hindi_name: "टीआरएस रबी फॉर्म"},
-    {eng_name: "Crop Cutting Form", form_name: "PT Crop Cutting Form", hindi_name: "फसल कटाई प्रयोग फॉर्म"}
+    {eng_name: "Crop Cutting Form", form_name: "PT Crop Cutting Form", hindi_name: "फसल कटाई प्रयोग फॉर्म"},
+
+    {eng_name: 'Record Correction Report', hindi_name: 'अभिलेख दुरुस्ती प्रतिवेदन', form_name: 'Record Correction Report'},
+    {eng_name: 'Illegal Colony Report', hindi_name: 'अवैध कॉलोनी प्रतिवेदन', form_name: 'Illegal Colony Report'},
+    {eng_name: 'Report for Registration of Tubewell/Well', hindi_name: 'नलकूप/कुआ दर्ज करने का प्रतिवेदन', form_name: 'Tubewell Registration Report'},
+    {eng_name: 'Report for De-irrigation of Irrigated Land', hindi_name: 'सिंचित से असिंचित दर्ज किये जाने का प्रतिवेदन', form_name: 'Report for Deirrigation'},
+    {eng_name: 'Report For Will', hindi_name: 'वसीयत हेतु प्रतिवेदन', form_name: 'Report For Will'},
+    {eng_name: 'Revenue Notice', hindi_name: 'राजस्व मामले में नोटिस', form_name: 'Revenue Notice'},
+  
+    {hindi_name: 'पीएम किसान सेल्फ रजिस्ट्रेशन प्रतिवेदन', eng_name: 'PM Kisan Self Registration Prativedan', form_name: 'PM Kisan Self Registration Prativedan'},
+    {hindi_name: 'फसल क्षति पत्रक', eng_name: 'Fasal Kshati Patrak', form_name: 'Fasal Kshati Patrak'},
+    {hindi_name: 'एम पी भूलेख रजिस्ट्रेशन फॉर्म', eng_name: 'MP Bhulekh Registration Form', form_name: 'MP Bhulekh Registration Form'},
   ],
   "Nabaligi Form" => [ 
     {eng_name: "Ordersheet First", form_name: "NB Ordersheet First", hindi_name: "ऑर्डरशीट प्रथम"},
@@ -117,7 +128,7 @@ rev_form_section = FormSection.where(eng_name: "Revenue", hindi_name: "राज
 if rev_form_section.present?
   rev_form_section.form_categories.each do | category | 
     forms = revenue_forms[category.eng_name];
-    forms.each  do |form| 
+    forms && forms.each  do |form| 
       category.blank_forms.create(form) if category.blank_forms.where(form).blank? 
     end
     # forms.each { |form| category.blank_forms.create(form) if category.blank_forms.where(form).blank? }

@@ -63,7 +63,10 @@ Rails.application.routes.draw do
       resources :blank_forms do
         get "/get_districts" => "blank_forms#get_districts", as: :get_districts, on: :collection
         get "/district/:district_id/get_tehsils" => "blank_forms#get_tehsils", as: :get_tehsils, on: :collection
-        get "/tehsils/:tehsil_id/get_villages" => "blank_forms#get_villages", as: :get_villages, on: :collection
+        get "/tehsils/:tehsil_id/get_villages" => "blank_forms#get_tehsil_villages", as: :get_villages, on: :collection
+        get "/tehsils/:tehsil_id/get_tehsil_villages" => "blank_forms#get_tehsil_villages", as: :get_tehsil_villages, on: :collection
+        get "/districts/:district_id/get_district_villages" => "blank_forms#get_district_villages", as: :get_district_villages, on: :collection
+        post "/search_villages" => "blank_forms#search_villages", as: :search_villages, on: :collection
       end
 
       post 'font_converters/read_docx', to: 'font_converters#read_docx'
