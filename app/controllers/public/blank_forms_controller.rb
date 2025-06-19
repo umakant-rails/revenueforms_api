@@ -15,8 +15,19 @@ class Public::BlankFormsController < ApplicationController
   end
 
   def get_districts
-    @districts = District.order("code ASC")
-    render json: { districts: @districts }
+    # @districts = District.order("code ASC")
+    # @districts = District.select('districts.id, districts.name, districts.name_eng, COUNT(villages.id) AS villages_count, SUM(villages.total_area_khasra) as area').joins(:villages).group('districts.id')
+    @districts = District.joins(:villages).group('districts.id, districts.name, districts.name_eng')
+      .select('districts.id, districts.name, districts.name_eng, 
+        COUNT(villages.id) AS villages_count, 
+        SUM(villages.total_area_khasra) as area
+      ')
+
+    tmp_district = @districts.map do | d | 
+      {id: d.id, name: d.name, name_eng: d.name_eng, tehsils: d.tehsils.count, villages: d.villages_count, area: d.area}
+    end
+
+    render json: { districts: tmp_district }
   end
 
   def get_tehsils
@@ -52,7 +63,8 @@ class Public::BlankFormsController < ApplicationController
 
   def search_villages
     query = params[:query]
-    @villages = Village.where("LOWER(village_eng) like ? or lgd_code like ?", "%#{query.downcase}%", "%#{query.downcase}%").map { |village|  
+    @villages = Village.where("LOWER(village_eng) like ? or lgd_code like ? or village like ?", 
+      "%#{query.downcase}%", "%#{query.downcase}%", "%#{query.downcase}%").map { |village|  
       village.attributes.merge({tehsil: village.tehsil.name, district: village.district.name}) 
     } 
     render json: { villages: @villages}
