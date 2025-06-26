@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  scope(:path => '/api') do
+  scope(:path => '/api/rails') do
     devise_for :users, path: 'users', path_names: {
       sign_in: 'login',
       sign_out: 'logout',
