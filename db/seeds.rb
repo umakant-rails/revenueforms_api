@@ -113,6 +113,8 @@ revenue_forms = {
     {hindi_name: 'पीएम किसान सेल्फ रजिस्ट्रेशन प्रतिवेदन', eng_name: 'PM Kisan Self Registration Prativedan', form_name: 'PM Kisan Self Registration Prativedan'},
     {hindi_name: 'फसल क्षति पत्रक', eng_name: 'Fasal Kshati Patrak', form_name: 'Fasal Kshati Patrak'},
     {hindi_name: 'एम पी भूलेख रजिस्ट्रेशन फॉर्म', eng_name: 'MP Bhulekh Registration Form', form_name: 'MP Bhulekh Registration Form'},
+    {hindi_name: 'सिकमीनामा फॉर्म', eng_name: 'Sikminama Form', form_name: 'Sikminama Form'},
+    {hindi_name: 'आरबीसी64 फॉर्म', eng_name: 'RBC64 Form', form_name: 'Rbc64 Form'},
   ],
   "Nabaligi Form" => [ 
     {eng_name: "Ordersheet First", form_name: "NB Ordersheet First", hindi_name: "ऑर्डरशीट प्रथम"},
