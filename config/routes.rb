@@ -20,7 +20,10 @@ Rails.application.routes.draw do
         get '/visited_pages' => "dashboards#visited_pages", as: :visited_pages, on: :collection
         get '/visited_users' => "dashboards#visited_users", as: :visited_users, on: :collection
       end
-      resources :users, only: [:index, :show, :destroy]
+      resources :users, only: [:index, :show, :destroy]  do
+        post '/confirm_user' => "users#confirm_user", on: :member
+      end
+
       resources :requests, only: [:index, :show]
       resources :blog_subjects do
         get '/get_subjects' => "blog_subjects#get_subjects", as: :get_subjects, on: :collection

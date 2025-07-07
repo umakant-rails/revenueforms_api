@@ -6,8 +6,16 @@ class Admin::UsersController < ApplicationController
     render json: { users: @users, total_users: @total_users, page: @page }
   end
 
+  def confirm_user
+    @user = User.find(params[:id])
+    if @user.update(confirmed_at: Time.now)
+      set_user_data
+      render json: {users: @users, total_users: @total_users, page: @page, message: 'Post confirm successfully.'  }
+    end
+  end
+
   def destroy
-    @user = User.find(params[:id])    
+    @user = User.find(params[:id])
     if @user.role_id != 1
       @user.destroy
       set_user_data
