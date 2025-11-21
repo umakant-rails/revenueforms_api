@@ -5,7 +5,10 @@ class ContactMsgsController < ApplicationController
     @contact_msg = ContactMsg.new(contact_msg_params)
 
     if @contact_msg.save
-      render json: @contact_msg, status: :created, location: @contact_msg
+      render json: {
+        contact_msgs: @contact_msgs,
+        status: :created,
+      }
     else
       render json: @contact_msg.errors, status: :unprocessable_entity
     end

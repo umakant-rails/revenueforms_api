@@ -28,6 +28,7 @@ categories = [
   {hindi_name: "सीमांकन फॉर्म", eng_name: 'Seemankan Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में भूमि सीमांकन से सम्बन्धित फॉर्म उपलब्ध है।"},
   {hindi_name: "राजस्व फॉर्म", eng_name: 'Revenue Form', description: "यहॉं पर राजस्व के कार्य से सम्बन्धित पटवारी हेतु फार्म उपलब्ध है जैसे:- फॉर्म सी, फसल बुआई प्रमाण पत्र, पट्टा भूमि विक्रय हेतु अनुमति आवेदन, विक्रय इकरारनामा फॉर्म, राजस्व वसूली फॉर्म आदि।"},
   {hindi_name: "नाबालिगी खारिज फार्म", eng_name: 'Nabaligi Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में दर्ज नाबालिग किसान को बालिग दर्ज करने से सम्बन्धित फॉर्म उपलब्ध है।"},
+  {hindi_name: "अन्य फॉर्म", eng_name: 'Other Form', description: "यहॉं पर हितग्राही के राजस्व रिकॉर्ड में दर्ज नाबालिग किसान को बालिग दर्ज करने से सम्बन्धित फॉर्म उपलब्ध है।"},
 ]
 
 
@@ -110,11 +111,12 @@ revenue_forms = {
     {eng_name: 'Report For Will', hindi_name: 'वसीयत हेतु प्रतिवेदन', form_name: 'Report For Will'},
     {eng_name: 'Revenue Notice', hindi_name: 'राजस्व मामले में नोटिस', form_name: 'Revenue Notice'},
   
-    {hindi_name: 'पीएम किसान सेल्फ रजिस्ट्रेशन प्रतिवेदन', eng_name: 'PM Kisan Self Registration Prativedan', form_name: 'PM Kisan Self Registration Prativedan'},
-    {hindi_name: 'फसल क्षति पत्रक', eng_name: 'Fasal Kshati Patrak', form_name: 'Fasal Kshati Patrak'},
-    {hindi_name: 'एम पी भूलेख रजिस्ट्रेशन फॉर्म', eng_name: 'MP Bhulekh Registration Form', form_name: 'MP Bhulekh Registration Form'},
-    {hindi_name: 'सिकमीनामा फॉर्म', eng_name: 'Sikminama Form', form_name: 'Sikminama Form'},
-    {hindi_name: 'आरबीसी64 फॉर्म', eng_name: 'RBC64 Form', form_name: 'Rbc64 Form'},
+    {eng_name: 'PM Kisan Self Registration Prativedan', hindi_name: 'पीएम किसान सेल्फ रजिस्ट्रेशन प्रतिवेदन', form_name: 'PM Kisan Self Registration Prativedan'},
+    {eng_name: 'Fasal Kshati Patrak', hindi_name: 'फसल क्षति पत्रक', form_name: 'Fasal Kshati Patrak'},
+    {eng_name: 'MP Bhulekh Registration Form', hindi_name: 'एम पी भूलेख रजिस्ट्रेशन फॉर्म', form_name: 'MP Bhulekh Registration Form'},
+    {eng_name: 'Sikminama Form', hindi_name: 'सिकमीनामा फॉर्म', form_name: 'Sikminama Form'},
+    {eng_name: 'RBC64 Form', hindi_name: 'आरबीसी64 फॉर्म', form_name: 'Rbc64 Form'},
+    {eng_name: 'Vakalatnama', hindi_name: 'वकालतनामा', form_name: 'Vakalatnama'},
   ],
   "Nabaligi Form" => [ 
     {eng_name: "Ordersheet First", form_name: "NB Ordersheet First", hindi_name: "ऑर्डरशीट प्रथम"},
@@ -124,6 +126,9 @@ revenue_forms = {
     {eng_name: "Ishtihar", form_name: "NB Ishtihar", hindi_name: "इश्तिहार"},
     {eng_name: "Patwari Prativedan", form_name: "NB Patwari Prativedan", hindi_name: "पटवारी प्रतिवेदन"}
   ],
+  "Other Form" => [
+    {eng_name: 'Aadhar Enrollment & Updation Form', form_name: 'Aadhar Enrollment & Updation Form', hindi_name: 'आधार नामांकन एवं अद्यतन फॉर्म'}
+  ]
 }
 
 rev_form_section = FormSection.where(eng_name: "Revenue", hindi_name: "राजस्व").first

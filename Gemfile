@@ -41,6 +41,7 @@ gem 'devise-jwt'
 gem 'fast_jsonapi'
 gem "simple_xlsx_reader"
 gem 'kaminari'
+gem 'httparty'
 
 gem "docx"
 gem "rubyXL"
