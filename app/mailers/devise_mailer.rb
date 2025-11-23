@@ -9,6 +9,7 @@ class DeviseMailer < Devise::Mailer
     url = Rails.application.secrets.zeptomail_url
     secret_token = Rails.application.secrets.zeptomail_secret_token
     host = default_url_options[:host]
+    raw_token = record.send(:set_reset_password_token)
     mailer = Devise::Mailer.new
 
     html_string = mailer.render_to_string(
@@ -17,7 +18,7 @@ class DeviseMailer < Devise::Mailer
       assigns: {
         host_name: "#{host}",
         resource: record,
-        token: record.reset_password_token,
+        token: raw_token,
         opts: { from: "no-reply@yourapp.com" }
       }
     )
@@ -39,6 +40,7 @@ class DeviseMailer < Devise::Mailer
     secret_token = Rails.application.secrets.zeptomail_secret_token
     host = default_url_options[:host]
     mailer = Devise::Mailer.new
+    raw_token = record.send(:set_reset_password_token)
 
     html_string = mailer.render_to_string(
       template: "users/mailer/reset_password_instructions",
@@ -46,7 +48,7 @@ class DeviseMailer < Devise::Mailer
       assigns: {
         host_name: "#{host}",
         resource: record,
-        token: record.reset_password_token,
+        token: raw_token,
         opts: { from: "no-reply@yourapp.com" }
       }
     )
@@ -59,7 +61,7 @@ class DeviseMailer < Devise::Mailer
       subject: "Reset Your Account Password",
       htmlbody: html_string
     }
-
+     
     response = ZeptoMailClient.send_mail(url, secret_token, payload)
 
     # mail = super

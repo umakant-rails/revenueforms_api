@@ -9,6 +9,7 @@ Rails.application.configure do
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
+
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
@@ -59,7 +60,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -89,7 +90,7 @@ Rails.application.configure do
     port:                 587,
     domain:               Rails.application.secrets.domain_name,
     user_name:            Rails.application.secrets.email,
-    password:             Rails.application.secrets.email_password, #ENV.fetch('EMAIL_PASSWORD'),
+    password:             Rails.application.secrets.email_password,
     authentication:      'login',
     enable_starttls_auto: true
   }
