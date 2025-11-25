@@ -2,6 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
+  before_action :authenticate_scope!, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
   def create
     error = []
@@ -25,6 +28,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    user = current_user
+
+    unless user.valid_password?(account_update_params[:current_password])
+      return render json: { error: "Current password is incorrect" }, status: :unprocessable_entity
+    end
+  
+    if user.update_with_password(account_update_params)
+      render json: { message: "Password updated successfully" }
+    else
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def respond_with(current_user, _opts = {})
@@ -39,6 +56,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
         status: {message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}"}
       }, status: :unprocessable_entity
     end
+  end
+
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [
+      :username, :role_id, :email, :password, :password_confirmation
+    ])
+  end
+
+  # Params permitted during ACCOUNT UPDATE
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [
+      :password, :password_confirmation, :current_password
+    ])
   end
 
 end
