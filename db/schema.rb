@@ -42,16 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_19_114206) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "confirmation_codes", force: :cascade do |t|
-    t.string "email"
-    t.string "phone"
-    t.string "code"
-    t.datetime "expires_at"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "contact_msgs", force: :cascade do |t|
     t.string "name"
     t.string "email"

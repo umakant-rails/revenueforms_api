@@ -116,6 +116,7 @@ revenue_forms = {
     {eng_name: 'MP Bhulekh Registration Form', hindi_name: 'एम पी भूलेख रजिस्ट्रेशन फॉर्म', form_name: 'MP Bhulekh Registration Form'},
     {eng_name: 'Sikminama Form', hindi_name: 'सिकमीनामा फॉर्म', form_name: 'Sikminama Form'},
     {eng_name: 'RBC64 Form', hindi_name: 'आरबीसी64 फॉर्म', form_name: 'Rbc64 Form'},
+    {eng_name: 'Beja Kabja Prativedan Form', hindi_name: 'बेजा कब्जा प्रतिवेदन फॉर्म', form_name: 'Beja Kabja Prativedan Form'},
     {eng_name: 'Vakalatnama', hindi_name: 'वकालतनामा', form_name: 'Vakalatnama'},
   ],
   "Nabaligi Form" => [ 
