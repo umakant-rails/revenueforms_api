@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     resources :contact_msgs, only: [:create]
 
     namespace :public, path: :pb do
+      resources :users, only: [:index]
+
       resources :form_sections do 
         get '/get_categories' => "form_sections#get_categories", as: :get_categories, on: :member 
       end

@@ -44,9 +44,9 @@ class Users::PasswordsController < Devise::PasswordsController
           action_status: false,
           error: @user.errors.full_messages 
         }
-      elsif @password_action == 'update_by_token'
+      elsif @user.id.present? && @password_action == 'update_by_token'
         render json: { message: 'Your password has been updated successfully.' }
-      elsif @password_action == 'create'
+      elsif @user.id.present? && @password_action == 'create'
         render json: {
           action_status: true,
           message: 'You will receive an email with instructions on how to reset your password in a few minutes.'

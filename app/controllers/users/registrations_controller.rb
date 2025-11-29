@@ -45,7 +45,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def respond_with(current_user, _opts = {})
-    if resource.persisted?
+    if @user.errors.full_messages.present?
+        render json: { 
+          action_status: false,
+          error: @user.errors.full_messages 
+        }
+    elsif resource.persisted?
       render json: {
         user: UserSerializer.new(resource).serializable_hash[:data][:attributes],
         confirmation_token: resource.confirmation_token,
