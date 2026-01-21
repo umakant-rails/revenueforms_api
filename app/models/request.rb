@@ -48,6 +48,7 @@ class Request < ApplicationRecord
         participants = participants.map{ |p| "#{p.name} #{p.relation} #{p.gaurdian}" }
         participant_names = participants.join(", ")
       end
+      kh_battank.update(village_id: kh_battank.khasra.village_id) if kh_battank.village_id.blank?
       village = kh_battank.village.attributes.merge({tehsil: kh_battank.village.tehsil.name})
       kh_battank.attributes.merge({
         village: village,
