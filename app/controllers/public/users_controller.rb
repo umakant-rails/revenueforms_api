@@ -20,10 +20,14 @@ class Public::UsersController < ApplicationController
 
 			total_users = users_scope.count
 		end
+	
+    users_tmp = users.map do | user |
+      user.attributes.merge({account_confirmed: user.confirmed_at.present?})
+    end
 
 		render json: {
 			page: page,
-      users: users,
+      users: users_tmp,
       total_users: total_users
     }
 	end
