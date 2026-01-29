@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :payment_transactions
   belongs_to :role
 
-  devise :database_authenticatable, :registerable, :validatable, :timeoutable, :confirmable,
+  devise :database_authenticatable, :registerable, :validatable, :timeoutable, :confirmable, :trackable,
     :recoverable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :username, :email, presence: true
