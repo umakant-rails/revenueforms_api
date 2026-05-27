@@ -29,8 +29,10 @@ class Request < ApplicationRecord
       ParticipantType.where("name in (?)", ["क्रेता", "विक्रेता", "करांदा-आम"])
     elsif self.request_type.name == "फौती"
       ParticipantType.where("name in (?)",  ["फौत व्यक्ति", "वारसान"])
-    elsif self.request_type.name.index("बटवारा") >= 0
+    elsif self.request_type.name.index("बटवारा") and self.request_type.name.index("बटवारा") >= 0
       ParticipantType.where("name in (?)",  ["मूल भू स्वामी", "नए हिस्सेदार", "मूल भू स्वामी एवं हिस्सेदार"])
+    elsif self.request_type.name == "नाबालिगी ख़ारिज"
+      ParticipantType.where("name in (?)",  ["नाबालिग़"])
     end
   end
 
