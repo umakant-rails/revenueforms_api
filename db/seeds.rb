@@ -8,7 +8,8 @@ request_types.each { |rt| RequestType.create(rt) if RequestType.where(rt).blank?
 #create participant types
 participant_types = [
   {name: "क्रेता"}, {name: "विक्रेता"}, {name: "करांदा-आम"}, {name: "फौत व्यक्ति"},
-  {name: "वारसान"}, {name: "मूल भू स्वामी"}, {name: "नए हिस्सेदार"}, {name: "मूल भू स्वामी एवं हिस्सेदार"}
+  {name: "वारसान"}, {name: "मूल भू स्वामी"}, {name: "नए हिस्सेदार"}, {name: "मूल भू स्वामी एवं हिस्सेदार"},
+  {name: "नाबालिग़"}
 ]
 participant_types.each { |pt| ParticipantType.create(pt) if ParticipantType.where(pt).blank? }
 
