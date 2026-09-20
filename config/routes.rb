@@ -24,7 +24,9 @@ Rails.application.routes.draw do
         post '/confirm_user' => "users#confirm_user", on: :member
       end
 
-      resources :requests, only: [:index, :show]
+      resources :requests, only: [:index, :show] do
+        get '/search' => "requests#search", on: :collection
+      end
       resources :blog_subjects do
         get '/get_subjects' => "blog_subjects#get_subjects", as: :get_subjects, on: :collection
       end
