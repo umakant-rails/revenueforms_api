@@ -6,7 +6,7 @@ class Public::FormCategoriesController < ApplicationController
   end
 
   def get_forms
-    @category = FormCategory.where(eng_name: params[:id]).first rescue nil
+    @category = FormCategory.where("LOWER(eng_name) = ?", params[:id].to_s.downcase).first rescue nil
     @categories = FormCategory.all()
     @forms = @category.blank_forms if @category
     @forms = @forms.map{ |form| form.attributes.merge(category: form.form_category.eng_name)}
